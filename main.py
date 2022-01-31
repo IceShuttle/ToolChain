@@ -9,10 +9,12 @@ pkg_list = {
     'npm': ['nvm', "nvm install --lts"],
     'yarn': ['npm', "npm i -g yarn"],
     'rustup':
-    ['',"curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"],
-    'miniconda': ["", "curl -sL \
+    ['', "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"],
+    'miniconda': [
+        "", "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\" >\
-      \"Miniconda3.sh\" && bash Miniconda3.sh -b"]
+      \"Miniconda3.sh\" && bash Miniconda3.sh -b"
+    ]
 }
 
 
