@@ -12,8 +12,8 @@ install_commands = {
     'yarn': ['npm', "npm i -g yarn"],
     'rustup':
     ['', "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env"],
-    'lsd':['cargo',"cargo install lsd"],
-    'alacritty':['cargo',"cargo install alacritty"],
+    'lsd':['rustup',"cargo install lsd"],
+    'alacritty':['rustup',"cargo install alacritty"],
     "conda or miniconda": [
         "", "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\" >\
