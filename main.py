@@ -3,6 +3,7 @@ from platform import system as get_os_name
 
 # {"execname (optional common name)":["dependency","linux command","mac command(optional)"]}
 install_commands = {
+    'vimv': ['', "curl https://raw.githubusercontent.com/thameera/vimv/master/vimv > ~/bin/vimv && chmod +755 ~/bin/vimv"],
     'nvm': [
         "",
         "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && . ~/.bashrc"
@@ -11,6 +12,7 @@ install_commands = {
     'yarn': ['npm', "npm i -g yarn"],
     'rustup':
     ['', "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env"],
+    'lsd':['cargo',"cargo install lsd"],
     "conda or miniconda": [
         "", "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\" >\
