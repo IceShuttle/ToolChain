@@ -22,7 +22,7 @@ jobs:
 
     - name: Run tests
       shell: bash 
-      run: . ~/.bashrc &&. test.sh
+      run: . ~/.bashrc && source test.sh
 
   macos-test:
 
@@ -36,5 +36,6 @@ jobs:
         run: python3 main-test.py
 
       - name: Run tests
-        shell: zsh
-        run: . ~/.zshrc && . test.sh
+        shell: bash 
+        run: . ~/.bashrc && source test.sh
+
