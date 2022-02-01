@@ -8,11 +8,11 @@ install_commands = {
     'npm': ['nvm', "nvm install --lts"],
     'yarn': ['npm', "npm i -g yarn"],
     'rustup':
-    ['', "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"],
+    ['', "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env"],
     "conda or miniconda": [
         "", "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\" >\
-      \"Miniconda3.sh\" && bash Miniconda3.sh -b"
+      \"Miniconda3.sh\" && bash Miniconda3.sh -b && . ~/.bashrc && conda init"
     ]
 }
 

@@ -17,4 +17,4 @@ jobs:
     - name: Build docker image
       run: docker build -f Test.Dockerfile -t test . 
     - name: Run Docker image
-      run: docker run -it --rm test
+      run: docker run -t --rm test
