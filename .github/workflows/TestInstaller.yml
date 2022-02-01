@@ -23,7 +23,7 @@ jobs:
     - name: Run tests
       shell: bash 
       run: bash test.sh
-
+  
   macos-test:
 
     runs-on: macos-latest

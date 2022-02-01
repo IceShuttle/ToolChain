@@ -1,5 +1,7 @@
 from os import system
+from platform import system as get_os_name
 
+# {"execname (optional common name)":["dependency","linux command","mac command(optional)"]}
 install_commands = {
     'nvm': [
         "",
@@ -12,7 +14,9 @@ install_commands = {
     "conda or miniconda": [
         "", "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\" >\
-      \"Miniconda3.sh\" && bash Miniconda3.sh -b && . ~/.bashrc && conda init"
+      \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init","curl -sL \
+      \"https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh\" >\
+      \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init"
     ]
 }
 
@@ -21,16 +25,21 @@ def install_packages(packages):
     if packages is None:
         print("You dont have selected any package exiting")
         return
-
+    
+    
     commands = []
     for pkg in packages:
         p = pkg
-        commands.append(install_commands[p][1])
+
+        cmd_no = 1 if get_os_name()=="Linux" else 2 # Configuring according to OS
+        cmd_no = 1 if len(install_commands[p]) < 3 else 2 # Checking if unique command is there or not
+
+        commands.append(install_commands[p][cmd_no])
 
         while install_commands[p][0] != "":
-            commands.append(install_commands[p][1])
+            commands.append(install_commands[p][cmd_no])
             p = install_commands[p][0]
-        commands.append(install_commands[p][1])
+        commands.append(install_commands[p][cmd_no])
 
     commands = list(dict.fromkeys(commands))  # Removing Duplicates
     system(" && ".join(commands[::-1])) # Running commands
