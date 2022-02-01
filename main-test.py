@@ -1,7 +1,7 @@
 from os import system
 from main import install_commands, install_packages
 
-packages = install_commands.keys()
+packages = list(install_commands.keys())
 
 exec_names = [i.split()[0] for i in packages] # Getting executable names 
 
