@@ -22,7 +22,7 @@ jobs:
 
     - name: Run tests
       shell: bash 
-      run: . ~/.bashrc && source test.sh
+      run: bash test.sh
 
   macos-test:
 
@@ -37,5 +37,5 @@ jobs:
 
       - name: Run tests
         shell: bash 
-        run: . ~/.bashrc && source test.sh
+        run: bash test.sh
 

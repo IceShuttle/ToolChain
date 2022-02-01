@@ -10,11 +10,13 @@ install_packages(packages)
 
 # Testing commands
 print()  # Creating blank line
-test_commands = []
+test_commands = [". ~/.nvm/nvm.sh",
+                 ". ~/.profile",
+                 ". ~/.bashrc"] # Loading environment
 
 for e in exec_names:
     test_commands.append(
-        f"if [ $(command -v {e} | wc -l) -lt 1 ] ; then echo \"Installation of {e} failed\" 1>&2 ; else echo passed ; fi"
+        f"if [ $(command -v {e} | wc -l) -lt 1 ] ; then echo \"Installation of {e} failed\" 1>&2 && exit 1 ; else echo passed ; fi"
     )
 
 with open("test.sh", 'w') as test_script:
