@@ -14,7 +14,7 @@ install_commands = {
     "conda or miniconda": [
         "", "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\" >\
-      \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init","curl -sL \
+      \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init", "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh\" >\
       \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init"
     ]
@@ -25,14 +25,14 @@ def install_packages(packages):
     if packages is None:
         print("You dont have selected any package exiting")
         return
-    
-    
+
     commands = []
     for pkg in packages:
         p = pkg
 
-        cmd_no = 1 if get_os_name()=="Linux" else 2 # Configuring according to OS
-        cmd_no = 1 if len(install_commands[p]) < 3 else 2 # Checking if unique command is there or not
+        cmd_no = 1 if get_os_name() == "Linux" else 2  # Configuring according to OS
+        # Checking if unique command is there or not
+        cmd_no = 1 if len(install_commands[p]) < 3 else 2
 
         commands.append(install_commands[p][cmd_no])
 
@@ -42,7 +42,7 @@ def install_packages(packages):
         commands.append(install_commands[p][cmd_no])
 
     commands = list(dict.fromkeys(commands))  # Removing Duplicates
-    system(" && ".join(commands[::-1])) # Running commands
+    system(" && ".join(commands[::-1]))  # Running commands
 
 
 def main():

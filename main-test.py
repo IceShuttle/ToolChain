@@ -11,7 +11,7 @@ install_packages(packages)
 # Testing commands
 print()  # Creating blank line
 test_commands = [". ~/.nvm/nvm.sh",
-                 ". ~/.bashrc"] # Loading environment
+                 ". ~/.bashrc"]  # Loading environment
 
 for e in exec_names:
     test_commands.append(
