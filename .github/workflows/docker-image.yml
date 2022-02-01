@@ -1,0 +1,20 @@
+name: Test Tool chain installer
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build docker image
+      run: docker build -f Test.Dockerfile -t test . 
+    - name: Run Docker image
+      run: docker run -it --rm test
