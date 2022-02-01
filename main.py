@@ -4,20 +4,28 @@ from platform import system as get_os_name
 # {"execname (optional common name)":["dependency","linux command","mac command(optional)"]}
 install_commands = {
     'vimv': ['', "curl https://raw.githubusercontent.com/thameera/vimv/master/vimv > ~/bin/vimv && chmod +755 ~/bin/vimv"],
+
     'nvm': [
         "",
         "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && . ~/.bashrc"
     ],
+
     'npm': ['nvm', "nvm install --lts"],
+
     'yarn': ['npm', "npm i -g yarn"],
-    'rustup':
-    ['', "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env"],
+
+    'rustup': ['', "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env"],
+
     'lsd':['rustup',"cargo install lsd"],
+
     'alacritty':['rustup',"cargo install alacritty"],
+
     "conda or miniconda": [
         "", "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\" >\
-      \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init", "curl -sL \
+      \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init",
+
+      "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh\" >\
       \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init"
     ]
@@ -29,7 +37,12 @@ def install_packages(packages):
         print("You dont have selected any package exiting")
         return
 
-    commands = []
+    # Adding common location to path
+    commands = [
+        "echo \"export PATH=\"~/bin:$PATH\"\" >> ~/.bashrc",
+        "echo \"export PATH=\"~/.local/bin:$PATH\"\" >> ~/.bashrc"
+        ]
+
     for pkg in packages:
         p = pkg
 
