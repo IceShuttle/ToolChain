@@ -1,0 +1,41 @@
+name: Test Tool chain installer
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  ubuntu-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+
+    - name: Install packages and creating test script
+      run: python3 main-test.py
+
+    - name: Run tests
+      shell: bash 
+      run: bash test.sh
+
+  macos-test:
+
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+
+      - name: Install packages and creating test script
+        run: python3 main-test.py
+
+      - name: Run tests
+        shell: bash 
+        run: bash test.sh
+
