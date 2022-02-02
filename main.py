@@ -55,8 +55,8 @@ def install_packages(packages):
 
     # Adding common directories to path
     commands.extend([
-        "echo \"export PATH=\"$HOME/bin:$PATH\"\" >> ~/.bashrc",
-        "echo \"export PATH=\"$HOME/.local/bin:$PATH\"\" >> ~/.bashrc"
+        "echo \"export PATH=\"\$HOME/bin:\$PATH\"\" >> ~/.bashrc",
+        "echo \"export PATH=\"\$HOME/.local/bin:\$PATH\"\" >> ~/.bashrc"
         ])
     commands = list(dict.fromkeys(commands))  # Removing Duplicates
     system(" && ".join(commands[::-1]))  # Running commands
