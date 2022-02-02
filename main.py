@@ -3,7 +3,7 @@ from platform import system as get_os_name
 
 # {"execname (optional common name)":["dependency","linux command","mac command(optional)"]}
 install_commands = {
-    'vimv': ['', "curl https://raw.githubusercontent.com/thameera/vimv/master/vimv > ~/bin/vimv && chmod +755 ~/bin/vimv"],
+    'vimv': ['', "mkdir ~/bin ; curl https://raw.githubusercontent.com/thameera/vimv/master/vimv -o ~/bin/vimv && chmod +755 ~/bin/vimv"],
 
     'nvm': [
         "",
@@ -37,11 +37,7 @@ def install_packages(packages):
         print("You dont have selected any package exiting")
         return
 
-    # Adding common location to path
-    commands = [
-        "echo \"export PATH=\"~/bin:$PATH\"\" >> ~/.bashrc",
-        "echo \"export PATH=\"~/.local/bin:$PATH\"\" >> ~/.bashrc"
-        ]
+    commands = []
 
     for pkg in packages:
         p = pkg
@@ -57,13 +53,20 @@ def install_packages(packages):
             p = install_commands[p][0]
         commands.append(install_commands[p][cmd_no])
 
+    # Adding common directories to path
+    commands.extend([
+        "echo \"export PATH=\"$HOME/bin:$PATH\"\" >> ~/.bashrc",
+        "echo \"export PATH=\"$HOME/.local/bin:$PATH\"\" >> ~/.bashrc"
+        ])
     commands = list(dict.fromkeys(commands))  # Removing Duplicates
     system(" && ".join(commands[::-1]))  # Running commands
 
 
 def main():
     from iterfzf import iterfzf as fzf
-    install_packages(fzf(install_commands.keys(), multi=True))
+    install_pkg = fzf(install_commands.keys(), multi=True)
+    install_packages(install_pkg)
+    return install_pkg # For partial testing
 
 
 if __name__ == "__main__":

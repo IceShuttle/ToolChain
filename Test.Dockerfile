@@ -1,5 +1,5 @@
 FROM python
 WORKDIR /app
 COPY . .
-RUN python3 main-test.py
+RUN python3 full_test.py
 CMD [ "bash" ,"test.sh"]

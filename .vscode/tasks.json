@@ -4,12 +4,13 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build image",
+            "label": "Manual Test",
             "type": "shell",
-            "command": "docker build -f Run.Dockerfile -t run ."
+            "command": "docker build -f Run.Dockerfile -t run . && docker run -it --rm run",
+            "problemMatcher": []
         },
         {
-            "label": "Test",
+            "label": "Full Automated Test",
             "type": "shell",
             "command": "docker build -f Test.Dockerfile -t test . && docker run -it --rm test",
             "problemMatcher": []

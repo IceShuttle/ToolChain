@@ -18,7 +18,7 @@ jobs:
     - uses: actions/setup-python@v2
 
     - name: Install packages and creating test script
-      run: python3 main-test.py
+      run: python3 full_test.py
 
     - name: Run tests
       shell: bash 
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/setup-python@v2
 
       - name: Install packages and creating test script
-        run: python3 main-test.py
+        run: python3 full_test.py
 
       - name: Run tests
         shell: bash 
