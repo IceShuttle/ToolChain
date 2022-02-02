@@ -36,6 +36,9 @@ def install_packages(packages):
         print("You dont have selected any package exiting")
         return
 
+    # Adding common directories to path
+    add_common_paths()
+
     commands = []
 
     for pkg in packages:
@@ -79,7 +82,6 @@ def add_common_paths():
 
 def main():
     from iterfzf import iterfzf as fzf
-    add_common_paths()
     install_pkg = fzf(install_commands.keys(), multi=True)
     install_packages(install_pkg)
     return install_pkg # For partial testing

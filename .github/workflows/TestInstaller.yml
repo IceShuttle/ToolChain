@@ -14,8 +14,8 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
+    - uses: actions/checkout@v2
 
     - name: Install packages and creating test script
       run: python3 full_test.py
