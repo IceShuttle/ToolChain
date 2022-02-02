@@ -74,9 +74,9 @@ def add_common_paths():
     home = str(Path.home())
     with open(f"{home}/.bashrc",'a') as bash_init:
         bash_init.writelines([
-            "export PATH=\"~/bin:$PATH\"",
-            "export PATH=\"~/.local/bin:$PATH\"",
-            "export PATH=\"~/miniconda3/bin:$PATH\"",
+            "export PATH=\"~/bin:$PATH\"\n",
+            "export PATH=\"~/.local/bin:$PATH\"\n",
+            "export PATH=\"~/miniconda3/bin:$PATH\"\n",
         ])
 
 def main():
