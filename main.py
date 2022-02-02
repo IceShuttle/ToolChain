@@ -21,8 +21,6 @@ install_commands = {
 
     "lsd": ["rustup", "cargo install lsd"],
 
-    "alacritty": ["rustup", "cargo install alacritty"],
-
     "conda": [
         "", "curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/Miniconda3.sh && bash /tmp/Miniconda3.sh -b -p ~/miniconda3",
 
