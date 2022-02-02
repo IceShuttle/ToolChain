@@ -17,7 +17,7 @@ install_commands = {
 
     "yarn": ["npm", "npm i -g yarn"],
 
-    "rustup": ["", "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env"],
+    "rustup": ["", "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env && . ~/.bashrc"],
 
     "lsd": ["rustup", "cargo install lsd"],
 
