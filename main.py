@@ -1,5 +1,8 @@
 from os import system
+from pathlib import Path
 from platform import system as get_os_name
+
+OS=get_os_name()
 
 # {"execname (optional common name)":["dependency","linux command","mac command(optional)"]}
 install_commands = {
@@ -16,18 +19,16 @@ install_commands = {
 
     "rustup": ["", "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env"],
 
-    "lsd":["rustup","cargo install lsd"],
+    "lsd": ["rustup", "cargo install lsd"],
 
-    "alacritty":["rustup","cargo install alacritty"],
+    "alacritty": ["rustup", "cargo install alacritty"],
 
-    "conda or miniconda": [
-        "", "curl -sL \
-      \"https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\" >\
-      \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init",
+    "conda": [
+        "", "curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/Miniconda3.sh && bash /tmp/Miniconda3.sh -b -p ~/miniconda3",
 
       "curl -sL \
       \"https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh\" >\
-      \"Miniconda3.sh\" && bash Miniconda3.sh -b -p $HOME/miniconda && . ~/.bashrc && conda init"
+      \"/tmp/Miniconda3.sh\" && bash /tmp/Miniconda3.sh -b -p ~/miniconda3"
     ]
 }
 
@@ -42,30 +43,45 @@ def install_packages(packages):
     for pkg in packages:
         p = pkg
 
-        cmd_no = 1 if get_os_name() == "Linux" else 2  # Configuring according to OS
-        # Checking if unique command is there or not
-        cmd_no = 1 if len(install_commands[p]) < 3 else 2
+        cmd_no=get_cmd_no(p)
 
         commands.append(install_commands[p][cmd_no])
 
         # Dependency Resolver
         while install_commands[p][0] != "":
+            cmd_no=get_cmd_no(p)
             commands.append(install_commands[p][cmd_no])
             p = install_commands[p][0]
 
         commands.append(install_commands[p][cmd_no])
 
     # Adding common directories to path
-    commands.extend([
-        "echo \"export PATH=\"\$HOME/bin:\$PATH\"\" >> ~/.bashrc",
-        "echo \"export PATH=\"\$HOME/.local/bin:\$PATH\"\" >> ~/.bashrc"
-        ])
-    commands = list(dict.fromkeys(commands))  # Removing Duplicates
-    system(" && ".join(commands[::-1]))  # Running commands
 
+    commands = list(dict.fromkeys(commands))  # Removing Duplicates
+    system(" && ".join(commands[::-1])) 
+
+def get_cmd_no(p):
+    c = 1
+    if len(install_commands[p])<3:
+        c=1
+    elif OS=="Linux":
+        c=1
+    elif OS=="Darwin":
+        c=2
+    return c
+    
+def add_common_paths():
+    home = str(Path.home())
+    with open(f"{home}/.bashrc",'a') as bash_init:
+        bash_init.writelines([
+            "export PATH=\"~/bin:$PATH\"",
+            "export PATH=\"~/.local/bin:$PATH\"",
+            "export PATH=\"~/miniconda3/bin:$PATH\"",
+        ])
 
 def main():
     from iterfzf import iterfzf as fzf
+    add_common_paths()
     install_pkg = fzf(install_commands.keys(), multi=True)
     install_packages(install_pkg)
     return install_pkg # For partial testing
