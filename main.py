@@ -6,7 +6,7 @@ OS=get_os_name()
 
 # {"execname (optional common name)":["dependency","linux command","mac command(optional)"]}
 install_commands = {
-    "vimv": ["", "mkdir ~/bin ; curl https://raw.githubusercontent.com/thameera/vimv/master/vimv -o ~/bin/vimv && chmod +755 ~/bin/vimv"],
+    "vimv": ["", "curl https://raw.githubusercontent.com/thameera/vimv/master/vimv --create-dirs -o ~/bin/vimv && chmod +755 ~/bin/vimv"],
 
     "nvm": [
         "",
