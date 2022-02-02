@@ -3,22 +3,22 @@ from platform import system as get_os_name
 
 # {"execname (optional common name)":["dependency","linux command","mac command(optional)"]}
 install_commands = {
-    'vimv': ['', "mkdir ~/bin ; curl https://raw.githubusercontent.com/thameera/vimv/master/vimv -o ~/bin/vimv && chmod +755 ~/bin/vimv"],
+    "vimv": ["", "mkdir ~/bin ; curl https://raw.githubusercontent.com/thameera/vimv/master/vimv -o ~/bin/vimv && chmod +755 ~/bin/vimv"],
 
-    'nvm': [
+    "nvm": [
         "",
         "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && . ~/.bashrc"
     ],
 
-    'npm': ['nvm', "nvm install --lts"],
+    "npm": ["nvm", "nvm install --lts"],
 
-    'yarn': ['npm', "npm i -g yarn"],
+    "yarn": ["npm", "npm i -g yarn"],
 
-    'rustup': ['', "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env"],
+    "rustup": ["", "curl https://sh.rustup.rs -sSf | sh -s -- -y && . ~/.cargo/env"],
 
-    'lsd':['rustup',"cargo install lsd"],
+    "lsd":["rustup","cargo install lsd"],
 
-    'alacritty':['rustup',"cargo install alacritty"],
+    "alacritty":["rustup","cargo install alacritty"],
 
     "conda or miniconda": [
         "", "curl -sL \
@@ -48,9 +48,11 @@ def install_packages(packages):
 
         commands.append(install_commands[p][cmd_no])
 
+        # Dependency Resolver
         while install_commands[p][0] != "":
             commands.append(install_commands[p][cmd_no])
             p = install_commands[p][0]
+
         commands.append(install_commands[p][cmd_no])
 
     # Adding common directories to path
