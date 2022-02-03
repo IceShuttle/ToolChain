@@ -1,10 +1,12 @@
-from os import system
+from ntpath import join
+from os import system as cmd
 from pathlib import Path
 from platform import system as get_os_name
 
 OS=get_os_name()
 
 # {"execname (optional common name)":["dependency","linux command","mac command(optional)"]}
+# Currently packages that depends on other packages must be below them
 install_commands = {
     "vimv": ["", "curl https://raw.githubusercontent.com/thameera/vimv/master/vimv --create-dirs -o ~/bin/vimv && chmod +755 ~/bin/vimv"],
 
@@ -39,27 +41,17 @@ def install_packages(packages):
     # Adding common directories to path
     add_common_paths()
 
-    commands = []
+    # Dependency Resolver
+    pkgs = packages.copy()
+    for p in pkgs:
+        if install_commands[p][0]!="":
+            pkgs.append(install_commands[p][0])
+    
+    # Ordering packages according to install_commands
+    pkgs = list(filter(lambda p: p in pkgs,install_commands.keys()))
+    commands = [install_commands[p][get_cmd_no(p)] for p in pkgs]
+    cmd(";\n".join(commands))
 
-    for pkg in packages:
-        p = pkg
-
-        cmd_no=get_cmd_no(p)
-
-        commands.append(install_commands[p][cmd_no])
-
-        # Dependency Resolver
-        while install_commands[p][0] != "":
-            cmd_no=get_cmd_no(p)
-            commands.append(install_commands[p][cmd_no])
-            p = install_commands[p][0]
-
-        commands.append(install_commands[p][cmd_no])
-
-    # Adding common directories to path
-
-    commands = list(dict.fromkeys(commands))  # Removing Duplicates
-    system(" && ".join(commands[::-1])) 
 
 def get_cmd_no(p):
     c = 1
@@ -82,9 +74,9 @@ def add_common_paths():
 
 def main():
     from iterfzf import iterfzf as fzf
-    install_pkg = fzf(install_commands.keys(), multi=True)
-    install_packages(install_pkg)
-    return install_pkg # For partial testing
+    packages = fzf(install_commands.keys(), multi=True)
+    install_packages(packages)
+    return  packages# For partial testing
 
 
 if __name__ == "__main__":

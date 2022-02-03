@@ -1,6 +1,6 @@
 from main import install_commands, install_packages
 
-packages = list(install_commands.keys())
+packages = install_commands.keys()
 
 def create_test_script(pkgs):
     exec_names = [i.split()[0] for i in pkgs]  # Getting executable names
@@ -22,4 +22,5 @@ def create_test_script(pkgs):
         test_script.writelines(" ; ".join(test_commands))
 
 if __name__=="__main__":
+    packages = [i.split()[0] for i in packages]
     create_test_script(packages)
