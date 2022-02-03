@@ -8,21 +8,19 @@ on:
 
 jobs:
 
-  ubuntu-test:
+  linux-test:
 
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
 
-    - uses: actions/setup-python@v2
-    - uses: actions/checkout@v2
+      - name: Building image
+        run: docker build -f Test.Dockerfile -t test .
+      
+      - name: Running Tests
+        run: docker run --rm -t test
 
-    - name: Install packages and creating test script
-      run: python3 full_test.py
-
-    - name: Run tests
-      shell: bash 
-      run: bash test.sh
   
   macos-test:
 
